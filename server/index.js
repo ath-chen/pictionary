@@ -68,6 +68,7 @@ const createApp = () => {
   app.use('/api', require('./api'))
 
   // static file-serving middleware
+  app.use('/uploads', express.static('uploads')) // I ADDED THIS LINE - WHY ISNT IT WORKING?!
   app.use(express.static(path.join(__dirname, '..', 'public')))
 
   // any remaining requests with an extension (.js, .css, etc.) send 404

@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Allerta+Stencil|Nunito|Work+Sans&display=swap');
+
 body {
-  font-family: sans-serif;
+  font-family: 'Work Sans', sans-serif;
+  color: black;
+  background-color: rgb(226, 182, 63);
 }
 
 a {
@@ -10,12 +14,166 @@ label {
   display: block;
 }
 
-nav a {
+nav a,
+nav a:visited,
+nav a:active {
+  display: inline-flex;
+  font-size: 25px;
+  letter-spacing: 0.17em;
+  margin: 30px 75px;
+  color: white;
+  font-weight: bolder;
+  flex-direction: row;
+}
+
+.dropdown {
   display: inline-block;
-  margin: 1em;
+  position: relative;
+  font-size: 14px;
+  font-weight: bold;
+  width: 250px;
+  color: white;
+  letter-spacing: 0.2em;
+  text-align: center;
+  /* float: center; */
+  /* margin: 35px 75px; */
+  /* border: 1px solid black; */
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  border: 3px solid white;
+  border-radius: 10px;
+  color: rgb(226, 182, 63);
+  background-color: white;
+  width: 200px;
+  /* padding: 10px; */
+  z-index: 1;
+  margin-top: -1px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content p {
+  padding: 5px 0px;
+}
+
+.dropdown-content p:hover {
+  background-color: white;
+  color: black;
+  border-radius: 10px;
 }
 
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.main-header {
+  text-align: center;
+  font-size: 50px;
+  font-weight: bolder;
+  letter-spacing: 0.12em;
+  margin-top: 7%;
+}
+
+.main-header h3 {
+  font-weight: bolder;
+  letter-spacing: 0.2em;
+}
+
+.upload-component {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+
+.submit-button,
+.main-header label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 150px;
+  height: 40px;
+  color: white;
+  background-color: rgb(226, 182, 63);
+  border-radius: 200px;
+  letter-spacing: 0.2em;
+  border: 3px solid white;
+  margin: 5px 25px;
+}
+
+.submit-button:hover,
+label:hover {
+  background-color: white;
+  color: rgb(226, 182, 63);
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.main-page-photo {
+  object-fit: cover;
+  width: 600px;
+  height: 300px;
+  opacity: 75%;
+  position: relative;
+  z-index: -1;
+}
+
+.main-slogan,
+.learn-slogan {
+  font-family: 'Allerta Stencil', sans-serif;
+  font-weight: bolder;
+  color: white;
+  font-size: 120px;
+  margin-top: -200px;
+}
+
+/* ALL BELOW IS FOR THE LEARNING PAGE! */
+
+.learn-slogan {
+  font-size: 80px;
+  margin-bottom: -50px;
+}
+
+.learn-pg {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
+.learn-pg-right,
+.learn-pg-left {
+  font-size: 20px;
+  width: 50%;
+}
+
+.learn-pg-right {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  text-align: left;
+  letter-spacing: 0;
+}
+
+.english-word {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 35px;
+  letter-spacing: 0;
+  font-style: italic;
+  margin-bottom: -10px;
 }

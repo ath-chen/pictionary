@@ -1,6 +1,16 @@
 import axios from 'axios'
 import history from '../history'
 
+// thunks
+// imgUrl i did this one, can prob delete
+export const translatePhoto = imgUrl => async dispatch => {
+  try {
+    const data = await axios.post('/api', {imgUrl})
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 /**
  * ACTION TYPES
  */
