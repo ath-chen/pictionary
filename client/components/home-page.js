@@ -2,17 +2,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {logout, translatePhoto} from '../store'
+import {logout, getInfo} from '../store'
 import Learn from './learn'
 
-export default class HomePage extends React.Component {
+class HomePage extends React.Component {
   constructor() {
     super()
     this.state = {
-      multerImage: '../../uploads/screenshot.png'
+      multerImage: null,
+      name: null,
+      description: null,
+      translation: null,
+      selectedLang: null
     }
     this.uploadImage = this.uploadImage.bind(this)
+    this.selectLanguage = this.selectLanguage.bind(this)
   }
+
+  // multerImage: '../../uploads/screenshot.png'
 
   uploadImage(e) {
     e.preventDefault()
@@ -24,8 +31,10 @@ export default class HomePage extends React.Component {
 
     this.setState({multerImage: URL.createObjectURL(e.target.files[0])})
 
-    document.getElementById('learning').scrollIntoView({behavior: 'smooth'})
+    // document.getElementById('learning').scrollIntoView({behavior: 'smooth'})
   }
+
+  selectLanguage() {}
 
   render() {
     return (
@@ -39,6 +48,36 @@ export default class HomePage extends React.Component {
 
         <form action="/api/upload" method="POST" encType="multipart/form-data">
           <div className="upload-component">
+            <div className="dropdown">
+              {' '}
+              SELECT LANGUAGE
+              {/* <input type="text" name="fname"></input> */}
+              <div className="dropdown-content">
+                <input type="checkbox" name="lanOption" value="zh" /> Chinese{' '}
+                <br />
+                <input
+                  type="checkbox"
+                  name="lanOption"
+                  value="fr"
+                /> French <br />
+                <input
+                  type="checkbox"
+                  name="lanOption"
+                  value="ja"
+                /> Japanese <br />
+                <input
+                  type="checkbox"
+                  name="lanOption"
+                  value="is"
+                /> Icelandic <br />
+                <input
+                  type="checkbox"
+                  name="lanOption"
+                  value="es"
+                /> Spanish <br />
+              </div>
+            </div>
+
             <input
               type="file"
               accept="image/*"
@@ -53,18 +92,43 @@ export default class HomePage extends React.Component {
               type="submit"
               value="Upload Photo"
               className="submit-button"
+              onClick={async () => {
+                await this.props.getInfo()
+                // console.log('data from homepage - english', this.props.photo.user.description[0])
+                // console.log('data from homepage - spanish', this.props.photo.user.translation[0])
+                let photoName = this.props.photo.user
+                let description = this.props.photo.user.description[0]
+                let translation = this.props.photo.user.translation[0]
+                this.setState({
+                  name: photoName,
+                  description: description,
+                  translation: translation
+                })
+                // console.log('from honmepage, state', this.state.name)
+              }}
             >
               SUBMIT
             </button>
           </div>
           <br /> <p />
-          <Learn state={this.state.multerImage} />
-          {/* {this.state.multerImage ? <div id='learning'><Learn state={this.state.multerImage}/></div> : ''} */}
+          {/* <Learn state={this.state.multerImage} /> */}
+          {/* {this.state.multerImage ? <Learn state={this.state}/> : ''} */}
         </form>
+        {this.state.multerImage ? <Learn state={this.state} /> : ''}
       </div>
     )
   }
 }
+
+const mapStateToProps = state => ({
+  photo: state
+})
+
+const mapDispatchToProps = dispatch => ({
+  getInfo: () => dispatch(getInfo())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
 
 /**
  * CONTAINER

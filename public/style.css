@@ -37,7 +37,10 @@ nav a:active {
   text-align: center;
   /* float: center; */
   /* margin: 35px 75px; */
-  /* border: 1px solid black; */
+  border-radius: 200px;
+  border: 3px solid white;
+  height: 27px;
+  padding-top: 7px;
 }
 
 .dropdown-content {
@@ -48,9 +51,9 @@ nav a:active {
   color: rgb(226, 182, 63);
   background-color: white;
   width: 200px;
-  /* padding: 10px; */
   z-index: 1;
-  margin-top: -1px;
+  text-align: left;
+  padding: 7px 0px 10px 20px;
 }
 
 .dropdown:hover .dropdown-content {
@@ -109,6 +112,11 @@ form div {
   margin: 5px 25px;
 }
 
+.main-header label {
+  height: 27px;
+  padding-top: 7px;
+}
+
 .submit-button:hover,
 label:hover {
   background-color: white;
@@ -133,13 +141,17 @@ label:hover {
   z-index: -1;
 }
 
+.main-slogan {
+  margin-top: -200px;
+}
+
 .main-slogan,
 .learn-slogan {
   font-family: 'Allerta Stencil', sans-serif;
   font-weight: bolder;
   color: white;
   font-size: 120px;
-  margin-top: -200px;
+  /* margin-top: -200px; */
 }
 
 /* ALL BELOW IS FOR THE LEARNING PAGE! */
@@ -176,4 +188,10 @@ label:hover {
   letter-spacing: 0;
   font-style: italic;
   margin-bottom: -10px;
+}
+
+.process_image {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
 }

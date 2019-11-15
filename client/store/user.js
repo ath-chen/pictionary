@@ -1,13 +1,24 @@
 import axios from 'axios'
 import history from '../history'
 
+// action types
+const GET_PHOTO = 'GET_PHOTO'
+
+// action creators
+const gotPhoto = photo => ({
+  type: GET_PHOTO,
+  photo
+})
+
 // thunks
-// imgUrl i did this one, can prob delete
-export const translatePhoto = imgUrl => async dispatch => {
+export const getInfo = () => async dispatch => {
+  console.log('getting to dispatch thunk')
   try {
-    const data = await axios.post('/api', {imgUrl})
-  } catch (error) {
-    console.error(error)
+    let {data} = await axios.get('/api/learn')
+    // console.log('data from thunk', data)
+    dispatch(gotPhoto(data))
+  } catch (err) {
+    console.error(err)
   }
 }
 
@@ -71,6 +82,11 @@ export const logout = () => async dispatch => {
  */
 export default function(state = defaultUser, action) {
   switch (action.type) {
+    case GET_PHOTO:
+      // console.log('data from action', action.photo.pop().fileName)
+      console.log('data from action', action.photo.pop())
+      return action.photo.pop()
+    // return action
     case GET_USER:
       return action.user
     case REMOVE_USER:
@@ -79,3 +95,12 @@ export default function(state = defaultUser, action) {
       return state
   }
 }
+
+// imgUrl i did this one, can prob delete
+// export const translatePhoto = imgUrl => async dispatch => {
+//   try {
+//     const data = await axios.post('/api', {imgUrl})
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }

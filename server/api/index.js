@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const {Photo} = require('../db/models')
 module.exports = router
 
 // MUTLER CONTENT HERE ON OUT!
@@ -35,24 +36,58 @@ const translator = new Translate({
   keyFilename: './server/api/APIKey.json'
 })
 
+router.get('/learn', async (req, res, next) => {
+  try {
+    let data = await Photo.findAll({
+      attributes: ['fileName', 'description', 'translation']
+    })
+    // console.log('from get router', data)
+    res.json(data)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/upload', upload.single('photo'), async (req, res, next) => {
   try {
-    console.log('body?', req.body)
+    console.log('body?', req.body.lanOption)
     console.log('file?', req.file)
     // console.log('request', req)
 
     // THIS PART WORKS! YES!
+    // let filename = req.file.originalname.split('.')[0]
+    // console.log('FILENAMEEEEEEE', filename)
     // const [result] = await client.labelDetection(`./uploads/${req.file.originalname}`);
     // const labels = result.labelAnnotations;
+    // console.log(labels[0]['description'])
 
-    // console.log(labels[0])
+    // const [translatedText] = await translator.translate(labels[0]['description'], req.body.lanOption)
+    // console.log('TRANLATIONNNNNNN', translatedText)
 
-    // res.send(req.file)
-    res.status(204)
+    let photoFile = req.file
+
+    const data = await Photo.create({
+      fileName: photoFile.filename,
+      fieldName: photoFile.fieldname,
+      path: photoFile.path,
+      description: ['Orange Cat'],
+      translation: ['Naranja Gato']
+    })
+
+    res.status(200)
+    // res.redirect('/learn')
   } catch (error) {
     next(error)
   }
 })
+
+router.use((req, res, next) => {
+  const error = new Error('Not Found')
+  error.status = 404
+  next(error)
+})
+
+// router.use('/users', require('./users'))
 
 // router.get('/', async (req, res) => {
 //     // const [result] = await client.labelDetection('./server/api/sunflower.jpg');
@@ -66,11 +101,3 @@ router.post('/upload', upload.single('photo'), async (req, res, next) => {
 //     res.send('this is working, commented out for now but only for one word')
 
 // });
-
-router.use((req, res, next) => {
-  const error = new Error('Not Found')
-  error.status = 404
-  next(error)
-})
-
-// router.use('/users', require('./users'))
