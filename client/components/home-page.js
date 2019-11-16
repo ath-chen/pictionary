@@ -1,8 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout, getInfo} from '../store'
+import {getInfo} from '../store'
 import Learn from './learn'
 
 class HomePage extends React.Component {
@@ -13,7 +11,8 @@ class HomePage extends React.Component {
       name: null,
       description: null,
       translation: null,
-      selectedLang: null
+      selectedLang: 'SELECT LANGUAGE',
+      show: null
     }
     this.uploadImage = this.uploadImage.bind(this)
     this.selectLanguage = this.selectLanguage.bind(this)
@@ -30,11 +29,11 @@ class HomePage extends React.Component {
     imageFormObj.append('imageData', URL.createObjectURL(e.target.files[0]))
 
     this.setState({multerImage: URL.createObjectURL(e.target.files[0])})
-
-    // document.getElementById('learning').scrollIntoView({behavior: 'smooth'})
   }
 
-  selectLanguage() {}
+  selectLanguage(language) {
+    this.setState({selectedLang: language})
+  }
 
   render() {
     return (
@@ -49,32 +48,43 @@ class HomePage extends React.Component {
         <form action="/api/upload" method="POST" encType="multipart/form-data">
           <div className="upload-component">
             <div className="dropdown">
-              {' '}
-              SELECT LANGUAGE
-              {/* <input type="text" name="fname"></input> */}
+              <span>{this.state.selectedLang}</span>
               <div className="dropdown-content">
-                <input type="checkbox" name="lanOption" value="zh" /> Chinese{' '}
-                <br />
                 <input
-                  type="checkbox"
+                  type="radio"
+                  name="lanOption"
+                  value="zh"
+                  onChange={() => this.selectLanguage('Chinese')}
+                />{' '}
+                Chinese <br />
+                <input
+                  type="radio"
                   name="lanOption"
                   value="fr"
-                /> French <br />
+                  onChange={() => this.selectLanguage('French')}
+                />{' '}
+                French <br />
                 <input
-                  type="checkbox"
+                  type="radio"
                   name="lanOption"
                   value="ja"
-                /> Japanese <br />
+                  onChange={() => this.selectLanguage('Japanese')}
+                />{' '}
+                Japanese <br />
                 <input
-                  type="checkbox"
+                  type="radio"
                   name="lanOption"
                   value="is"
-                /> Icelandic <br />
+                  onChange={() => this.selectLanguage('Icelandic')}
+                />{' '}
+                Icelandic <br />
                 <input
-                  type="checkbox"
+                  type="radio"
                   name="lanOption"
                   value="es"
-                /> Spanish <br />
+                  onChange={() => this.selectLanguage('Spanish')}
+                />{' '}
+                Spanish <br />
               </div>
             </div>
 
@@ -94,27 +104,36 @@ class HomePage extends React.Component {
               className="submit-button"
               onClick={async () => {
                 await this.props.getInfo()
-                // console.log('data from homepage - english', this.props.photo.user.description[0])
-                // console.log('data from homepage - spanish', this.props.photo.user.translation[0])
+
                 let photoName = this.props.photo.user
-                let description = this.props.photo.user.description[0]
-                let translation = this.props.photo.user.translation[0]
+                let description = this.props.photo.user.description
+                let translation = this.props.photo.user.translation
+
+                console.log('description from HP', description)
+                console.log('translation from HP', translation)
+
                 this.setState({
                   name: photoName,
                   description: description,
-                  translation: translation
+                  translation: translation,
+                  show: true
                 })
-                // console.log('from honmepage, state', this.state.name)
+
+                document
+                  .getElementById('main-learn-pg')
+                  .scrollIntoView({behavior: 'smooth'})
               }}
             >
               SUBMIT
             </button>
           </div>
           <br /> <p />
-          {/* <Learn state={this.state.multerImage} /> */}
-          {/* {this.state.multerImage ? <Learn state={this.state}/> : ''} */}
         </form>
-        {this.state.multerImage ? <Learn state={this.state} /> : ''}
+        {this.state.multerImage && this.state.show ? (
+          <Learn state={this.state} />
+        ) : (
+          ''
+        )}
       </div>
     )
   }

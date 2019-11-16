@@ -83,9 +83,10 @@ export const logout = () => async dispatch => {
 export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_PHOTO:
-      // console.log('data from action', action.photo.pop().fileName)
-      console.log('data from action', action.photo.pop())
-      return action.photo.pop()
+      let data = action.photo.pop()
+      console.log('why is data wrong?', data.description)
+      console.log('why is data wrong?', data.translation)
+      return data
     // return action
     case GET_USER:
       return action.user

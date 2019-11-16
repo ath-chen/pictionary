@@ -12,11 +12,9 @@ const storage = multer.diskStorage({
   },
   filename: function(req, file, callback) {
     callback(null, file.originalname)
-    // new Date().toISOString() +
   }
 })
 
-// , preservePath: true
 const upload = multer({storage: storage})
 
 // CLOUD VISION API SET UP!
@@ -41,7 +39,6 @@ router.get('/learn', async (req, res, next) => {
     let data = await Photo.findAll({
       attributes: ['fileName', 'description', 'translation']
     })
-    // console.log('from get router', data)
     res.json(data)
   } catch (err) {
     next(err)
@@ -52,14 +49,24 @@ router.post('/upload', upload.single('photo'), async (req, res, next) => {
   try {
     console.log('body?', req.body.lanOption)
     console.log('file?', req.file)
-    // console.log('request', req)
 
     // THIS PART WORKS! YES!
     // let filename = req.file.originalname.split('.')[0]
     // console.log('FILENAMEEEEEEE', filename)
     // const [result] = await client.labelDetection(`./uploads/${req.file.originalname}`);
     // const labels = result.labelAnnotations;
-    // console.log(labels[0]['description'])
+    // console.log(labels[0]['description'], labels[1]['description'], labels[2]['description'])
+
+    // let arr = [labels[0]['description'], labels[1]['description'], labels[2]['description']]
+
+    // let translatedArr = []
+
+    // for(let i = 0; i < arr.length; i++) {
+    //   const [translatedText] = await translator.translate(arr[i], req.body.lanOption)
+    //   translatedArr.push(translatedText)
+    // }
+
+    // console.log('did arr update?', translatedArr)
 
     // const [translatedText] = await translator.translate(labels[0]['description'], req.body.lanOption)
     // console.log('TRANLATIONNNNNNN', translatedText)
@@ -70,8 +77,10 @@ router.post('/upload', upload.single('photo'), async (req, res, next) => {
       fileName: photoFile.filename,
       fieldName: photoFile.fieldname,
       path: photoFile.path,
-      description: ['Orange Cat'],
-      translation: ['Naranja Gato']
+      // description: arr,
+      // translation: translatedArr
+      description: ['Orange Cat', 'Yolo', 'Intuition'],
+      translation: ['Naranja Gato', 'Sup', 'Idk']
     })
 
     res.status(200)
@@ -86,18 +95,3 @@ router.use((req, res, next) => {
   error.status = 404
   next(error)
 })
-
-// router.use('/users', require('./users'))
-
-// router.get('/', async (req, res) => {
-//     // const [result] = await client.labelDetection('./server/api/sunflower.jpg');
-//     // const labels = result.labelAnnotations;
-
-//     // const [translatedText] = await translator.translate(labels[0]['description'], 'es')
-
-//     // labels[0]['translation'] = translatedText
-
-//     // res.send(labels[0])
-//     res.send('this is working, commented out for now but only for one word')
-
-// });
