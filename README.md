@@ -23,5 +23,8 @@ npm test
 ```
 
 # Screenshots
+![home page](https://github.com/ath-chen/pictionary/blob/master/pictionary-thumbnail.png)
+
+* disclaimer: all images found on the website were found via google images and are not my own. 
 
 
