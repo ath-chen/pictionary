@@ -4,7 +4,7 @@ Curious about what that word is in French or Chinese? Check out Pictionary - a w
 
 # Technolgies
 
-Javscript, React, Redux, Express, Multer, Sequelize, Heroku, PostgreSQL, Google Cloud Vision API, Google Text Translation API
+Javscript, React, Redux, Express, Multer, Sequelize, PostgreSQL, Google Cloud Vision API, Google Text Translation API
 
 # Installation
 
