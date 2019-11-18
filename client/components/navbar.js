@@ -6,12 +6,6 @@ const Navbar = () => {
     <div>
       <nav>
         <Link to="/">pictionary</Link>
-        {/* <span className='dropdown'> SELECT A LANGUAGE v
-                    <div class="dropdown-content">
-                        <p>Spanish</p>
-                        <p>Chinese</p>
-                    </div>
-                </span> */}
       </nav>
     </div>
   )
