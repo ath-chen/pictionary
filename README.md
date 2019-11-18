@@ -17,9 +17,6 @@ npm install
 
 // run app
 npm run start-dev
-
-// run tests
-npm test
 ```
 
 # Screenshots
