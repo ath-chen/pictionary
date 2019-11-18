@@ -25,6 +25,6 @@ npm test
 # Screenshots
 ![home page](https://github.com/ath-chen/pictionary/blob/master/pictionary-thumbnail.png)
 
-* disclaimer: home page image was found via Google images and are not my own. 
+* Disclaimer: home page image was found via Google images and are not my own. 
 
 
