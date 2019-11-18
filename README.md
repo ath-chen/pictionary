@@ -1,3 +1,3 @@
 # Pictionary
 
-Want to identify an item and learn what that item is in another language? Enter pictionary!
+Curious about what that word is in French or Chinese? Check out Pictionary - a web based application that recoginizes objects using Vision AI and text translation. 
