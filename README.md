@@ -23,6 +23,6 @@ npm run start-dev
 ![home page](https://github.com/ath-chen/pictionary/blob/master/pictionary-thumbnail.png)
 ![translation_page](https://github.com/ath-chen/pictionary/blob/master/pictionary-translation.png)
 
-* Disclaimer: home page image was found via Google images and are not my own. 
+* Disclaimer: home page camera image and translation catus image were both found via Google images and are not my own. 
 
 
