@@ -17,12 +17,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage})
 
-// CLOUD VISION API SET UP!
-// Imports the Google Cloud client library
+// CLOUD VISION API SET UP! Imports the Google Cloud client library
 const vision = require('@google-cloud/vision')
 
 // TRANSLATION API SET UP!
-// const  { Translate }  = require("@google-cloud/translate")
 const {Translate} = require('@google-cloud/translate').v2
 
 // Creates a client
@@ -47,29 +45,33 @@ router.get('/learn', async (req, res, next) => {
 
 router.post('/upload', upload.single('photo'), async (req, res, next) => {
   try {
-    console.log('body?', req.body.lanOption)
-    console.log('file?', req.file)
-
     // THIS PART WORKS! YES!
-    // let filename = req.file.originalname.split('.')[0]
-    // console.log('FILENAMEEEEEEE', filename)
-    // const [result] = await client.labelDetection(`./uploads/${req.file.originalname}`);
-    // const labels = result.labelAnnotations;
-    // console.log(labels[0]['description'], labels[1]['description'], labels[2]['description'])
+    let filename = req.file.originalname.split('.')[0]
+    const [result] = await client.labelDetection(
+      `./uploads/${req.file.originalname}`
+    )
+    const labels = result.labelAnnotations
 
-    // let arr = [labels[0]['description'], labels[1]['description'], labels[2]['description']]
+    let arr = [
+      labels[0].description,
+      labels[1].description,
+      labels[2].description
+    ]
 
-    // let translatedArr = []
+    let translatedArr = []
 
-    // for(let i = 0; i < arr.length; i++) {
-    //   const [translatedText] = await translator.translate(arr[i], req.body.lanOption)
-    //   translatedArr.push(translatedText)
-    // }
+    for (let i = 0; i < arr.length; i++) {
+      const [translatedText] = await translator.translate(
+        arr[i],
+        req.body.lanOption
+      )
+      translatedArr.push(translatedText)
+    }
 
-    // console.log('did arr update?', translatedArr)
-
-    // const [translatedText] = await translator.translate(labels[0]['description'], req.body.lanOption)
-    // console.log('TRANLATIONNNNNNN', translatedText)
+    const [translatedText] = await translator.translate(
+      labels[0].description,
+      req.body.lanOption
+    )
 
     let photoFile = req.file
 
@@ -77,14 +79,11 @@ router.post('/upload', upload.single('photo'), async (req, res, next) => {
       fileName: photoFile.filename,
       fieldName: photoFile.fieldname,
       path: photoFile.path,
-      // description: arr,
-      // translation: translatedArr
-      description: ['Orange Cat', 'Yolo', 'Intuition'],
-      translation: ['Naranja Gato', 'Sup', 'Idk']
+      description: arr,
+      translation: translatedArr
     })
 
     res.status(200)
-    // res.redirect('/learn')
   } catch (error) {
     next(error)
   }
