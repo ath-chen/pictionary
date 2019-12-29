@@ -107,9 +107,6 @@ class HomePage extends React.Component {
                 let description = this.props.photo.user.description
                 let translation = this.props.photo.user.translation
 
-                console.log('description from HP', description)
-                console.log('translation from HP', translation)
-
                 this.setState({
                   name: photoName,
                   description: description,

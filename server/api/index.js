@@ -45,7 +45,7 @@ router.get('/learn', async (req, res, next) => {
 
 router.post('/upload', upload.single('photo'), async (req, res, next) => {
   try {
-    // THIS PART WORKS! YES!
+    // get file, send through vision AI, and grab labels
     let filename = req.file.originalname.split('.')[0]
     const [result] = await client.labelDetection(
       `./uploads/${req.file.originalname}`
@@ -60,6 +60,7 @@ router.post('/upload', upload.single('photo'), async (req, res, next) => {
 
     let translatedArr = []
 
+    // translate each photo label to selected language
     for (let i = 0; i < arr.length; i++) {
       const [translatedText] = await translator.translate(
         arr[i],
@@ -68,14 +69,11 @@ router.post('/upload', upload.single('photo'), async (req, res, next) => {
       translatedArr.push(translatedText)
     }
 
-    const [translatedText] = await translator.translate(
-      labels[0].description,
-      req.body.lanOption
-    )
+    await translator.translate(labels[0].description, req.body.lanOption)
 
     let photoFile = req.file
 
-    const data = await Photo.create({
+    await Photo.create({
       fileName: photoFile.filename,
       fieldName: photoFile.fieldname,
       path: photoFile.path,

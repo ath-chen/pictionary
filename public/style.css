@@ -155,7 +155,6 @@ label:hover {
   font-weight: bolder;
   color: white;
   font-size: 120px;
-  /* margin-top: -200px; */
 }
 
 /* ALL BELOW IS FOR THE LEARNING PAGE! */
@@ -168,8 +167,6 @@ label:hover {
 .learn-pg {
   display: flex;
   flex-direction: row;
-  /* justify-content: center; */
-  /* align-items: center; */
 }
 
 .learn-pg-right,
